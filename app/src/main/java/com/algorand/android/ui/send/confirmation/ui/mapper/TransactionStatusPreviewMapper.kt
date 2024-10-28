@@ -21,7 +21,7 @@ import com.algorand.android.utils.Event
 import javax.inject.Inject
 
 class TransactionStatusPreviewMapper @Inject constructor() {
-
+    @Suppress("LongParameterList")
     fun mapToTransactionStatusPreview(
         @RawRes transactionStatusAnimationResId: Int?,
         @DrawableRes transactionStatusAnimationBackgroundResId: Int,
@@ -30,7 +30,9 @@ class TransactionStatusPreviewMapper @Inject constructor() {
         @ColorRes transactionStatusAnimationDrawableTintResId: Int?,
         @StringRes transactionStatusTitleResId: Int,
         @StringRes transactionStatusDescriptionResId: Int,
-        onExitSendAlgoNavigationEvent: Event<Unit>?
+        onExitSendAlgoNavigationEvent: Event<Unit>?,
+        isDoneButtonVisible: Boolean,
+        isExplorerButtonVisible: Boolean
     ): TransactionStatusPreview {
         return TransactionStatusPreview(
             transactionStatusAnimationResId = transactionStatusAnimationResId,
@@ -40,7 +42,9 @@ class TransactionStatusPreviewMapper @Inject constructor() {
             transactionStatusAnimationDrawableTintResId = transactionStatusAnimationDrawableTintResId,
             transactionStatusTitleResId = transactionStatusTitleResId,
             transactionStatusDescriptionResId = transactionStatusDescriptionResId,
-            onExitSendAlgoNavigationEvent = onExitSendAlgoNavigationEvent
+            onExitSendAlgoNavigationEvent = onExitSendAlgoNavigationEvent,
+            isDoneButtonVisible = isDoneButtonVisible,
+            isExplorerButtonVisible = isExplorerButtonVisible
         )
     }
 }
