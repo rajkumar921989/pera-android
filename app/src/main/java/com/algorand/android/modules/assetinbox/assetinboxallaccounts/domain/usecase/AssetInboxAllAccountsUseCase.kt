@@ -26,7 +26,9 @@ class AssetInboxAllAccountsUseCase @Inject constructor(
 ) {
 
     suspend fun updateAssetInboxAllAccountsCache() {
-        assetInboxAllAccountsRepository.getAssetInboxAllAccounts(getAllAccountAddresses()).use(
+        assetInboxAllAccountsRepository.getAssetInboxAllAccounts(
+            accountManager.getAllAccountsAddressesExceptWatch()
+        ).use(
             onSuccess = { assetInboxAllAccounts ->
                 assetInboxAllAccountsRepository.cacheAssetInboxAllAccounts(
                     assetInboxAllAccounts.map { CacheResult.Success.create(it) }
@@ -44,9 +46,5 @@ class AssetInboxAllAccountsUseCase @Inject constructor(
 
     suspend fun getAssetInboxCountCacheFlow(): Flow<Int> {
         return assetInboxAllAccountsRepository.getAssetInboxCountCacheFlow()
-    }
-
-    private fun getAllAccountAddresses(): List<String> {
-        return accountManager.getAccounts().map { it.address }
     }
 }
