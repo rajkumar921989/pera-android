@@ -26,8 +26,8 @@ import com.algorand.android.utils.assetdrawable.BaseAssetDrawableProvider
 import com.algorand.android.utils.formatAmount
 import com.algorand.android.utils.formatAsAssetAmount
 import com.algorand.android.utils.formatAsCurrency
+import com.algorand.android.utils.multiplyOrZero
 import com.algorand.android.utils.toShortenedAddress
-import java.math.BigInteger
 import javax.inject.Inject
 
 class AssetInboxOneAccountPreviewMapperImpl @Inject constructor(
@@ -61,7 +61,11 @@ class AssetInboxOneAccountPreviewMapperImpl @Inject constructor(
                 result.asset.logo
             )
             if (result.asset.collectible != null) {
-                createCollectiblePreview(assetInboxOneAccountPaginated, result, assetDrawableProvider)
+                createCollectiblePreview(
+                    assetInboxOneAccountPaginated,
+                    result,
+                    assetDrawableProvider
+                )
             } else {
                 createAssetPreview(assetInboxOneAccountPaginated, result, assetDrawableProvider)
             }
@@ -116,13 +120,14 @@ class AssetInboxOneAccountPreviewMapperImpl @Inject constructor(
         result: AssetInboxOneAccountResult,
         assetDrawableProvider: BaseAssetDrawableProvider
     ): AsaPreview {
+
         return AsaPreview.AssetPreview(
             id = result.asset.assetId,
             receiverAddress = assetInboxOneAccountPaginated.receiverAddress,
             assetName = result.asset.name,
             shortName = result.asset.unitName,
-            usdValue = getFormattedUsdValue(result.asset.usdValue),
-            amount = getTotalAssetAmount(result),
+            usdValue = getFormattedUsdValue(result),
+            amount = result.totalAmount,
             logo = result.asset.collectible?.primaryImage,
             senderAccounts = result.senders.results.map {
                 SenderPreview(
@@ -165,19 +170,17 @@ class AssetInboxOneAccountPreviewMapperImpl @Inject constructor(
         )
     }
 
-    private fun getTotalAssetAmount(result: AssetInboxOneAccountResult): BigInteger {
-        return result.senders.results.sumOf { it.amount }
-    }
-
     private fun getFormattedAssetAmount(result: AssetInboxOneAccountResult): String {
-        return getTotalAssetAmount(result)
+        return result.totalAmount
             .formatAmount(result.asset.decimals)
             .formatAsAssetAmount(result.asset.unitName)
     }
 
-    private fun getFormattedUsdValue(usdValue: String): String {
-        return usdValue.toBigDecimalOrNull()
-            ?.formatAsCurrency(Currency.USD.symbol, isCompact = true)
-            .orEmpty()
+    private fun getFormattedUsdValue(result: AssetInboxOneAccountResult): String {
+        return result.totalAmount
+            .toBigDecimal()
+            .movePointLeft(result.asset.decimals)
+            .multiplyOrZero(result.asset.usdValue.toBigDecimalOrNull())
+            .formatAsCurrency(Currency.USD.symbol, isCompact = true)
     }
 }
