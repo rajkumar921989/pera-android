@@ -196,6 +196,13 @@ android {
         exclude("lib/libnarcissus-win-64.dll")
     }
 
+    configurations {
+        all*.exclude module: 'bcprov-jdk15to18'
+        all*.exclude module: 'bcutil-jdk18on'
+        all*.exclude module: 'bcprov-jdk15on'
+        all*.exclude module: 'bcutil-jdk15on'
+    }
+
     namespace application.applicationId
 }
 
@@ -270,7 +277,7 @@ dependencies {
 
     // Wallet Connect v2
     implementation(platform(libs.walletconnect))
-    implementation(libs.android.core) {
+    implementation(libs.walletconnect.android.core) {
         exclude group: 'com.jakewharton.timber', module: 'timber'
     }
     implementation libs.sign
