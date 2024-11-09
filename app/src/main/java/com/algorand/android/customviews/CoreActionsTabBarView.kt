@@ -15,6 +15,10 @@ package com.algorand.android.customviews
 import android.content.Context
 import android.util.AttributeSet
 import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.core.view.isVisible
+import com.algorand.android.CoreActionsTabBarViewModel
+import com.algorand.android.CoreActionsTabBarViewModel.ViewState.Content
+import com.algorand.android.CoreActionsTabBarViewModel.ViewState.Idle
 import com.algorand.android.R
 import com.algorand.android.databinding.CustomCoreActionsTabBarBinding
 import com.algorand.android.utils.viewbinding.viewBinding
@@ -40,6 +44,7 @@ class CoreActionsTabBarView @JvmOverloads constructor(
             scanQrButton.setOnClickListener { listener?.onScanQRClick() }
             swapButton.setOnClickListener { listener?.onSwapClick() }
             browseDAppsButton.setOnClickListener { listener?.onBrowseDappsClick() }
+            cardsButton.setOnClickListener { listener?.onCardsClick() }
             backgroundColorView.setOnClickListener { startHidingAnimation() }
         }
     }
@@ -66,6 +71,13 @@ class CoreActionsTabBarView @JvmOverloads constructor(
 
     fun setBrowseDappsEnabled(isEnabled: Boolean) {
         binding.browseDAppsButton.isEnabled = isEnabled
+    }
+
+    fun initViewState(viewState: CoreActionsTabBarViewModel.ViewState) {
+        when (viewState) {
+            is Content -> binding.cardsButton.isVisible = viewState.isCardsVisible
+            Idle -> binding.cardsButton.visibility = GONE
+        }
     }
 
     private fun startHidingAnimation() {
@@ -108,5 +120,6 @@ class CoreActionsTabBarView @JvmOverloads constructor(
         fun onCoreActionsClick(isCoreActionsOpen: Boolean)
         fun onSwapClick()
         fun onBrowseDappsClick()
+        fun onCardsClick()
     }
 }

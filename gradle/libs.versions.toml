@@ -7,7 +7,6 @@ appCompat = "1.7.0"
 biometric = "1.1.0"
 ble = "2.8.0"
 browser = "1.8.0"
-kspGradlePlugin = "2.0.21-1.0.25"
 constraintLayout = "2.2.0"
 coil = "3.0.1"
 compose = "1.6.10"
@@ -37,6 +36,7 @@ kotlin = "2.0.21"
 kotlinfixture = "1.2.0"
 kotlinxSerialization = "1.7.3"
 kotlinTest = "1.8.22"
+kspGradlePlugin = "2.0.21-1.0.25"
 ksp = "2.0.21-1.0.25"
 ktor = "3.0.0"
 ktorContentNegotiation = "3.0.0"
@@ -45,6 +45,7 @@ lifecycle = "2.8.7"
 lifecycleExt = "2.2.0"
 lottie = "6.4.1"
 material = "1.12.0"
+mockito  = "5.4.0"
 mockk = "1.13.13"
 moshi = "1.15.1"
 mpAndroidChart = "3.1.0"
@@ -71,21 +72,21 @@ androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-
 androidx-lifecycle-viewmodel-savedstate = { module = "androidx.lifecycle:lifecycle-viewmodel-savedstate", version.ref = "lifecycle" }
 androidx-testManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "androidx-uiTest" }
 androidx-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "androidx-uiTest" }
-coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
-datastore-preferences = { module = "androidx.datastore:datastore-preferences-core", version.ref = "datastore" }
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompat" }
 biometric = { module = "androidx.biometric:biometric", version.ref = "biometric" }
 ble = { module = "no.nordicsemi.android:ble", version.ref = "ble" }
 browser = { module = "androidx.browser:browser", version.ref = "browser" }
-ksp-gradle-plugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "kspGradlePlugin" }
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintLayout" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+datastore-preferences = { module = "androidx.datastore:datastore-preferences-core", version.ref = "datastore" }
 desugar-jdk = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar" }
 espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
 exoplayer = { module = "com.google.android.exoplayer:exoplayer", version.ref = "exoPlayer" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-config = { module = "com.google.firebase:firebase-config-ktx" }
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 firebase-crashlytics-gradle = { module = "com.google.firebase:firebase-crashlytics-gradle", version.ref = "firebaseCrashlyticsGradle" }
 firebase-messaging = { module = "com.google.firebase:firebase-messaging" }
@@ -103,15 +104,22 @@ java-websocket = { module = "org.java-websocket:Java-WebSocket", version.ref = "
 junit = { module = "junit:junit", version.ref = "junit" }
 khex = { module = "com.github.komputing:khex", version.ref = "khex" }
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin" }
+koin-android = { module = "io.insert-koin:koin-android" }
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
 koin-core = { module = "io.insert-koin:koin-core" }
 koin-core-viewmodel = { module = "io.insert-koin:koin-core-viewmodel" }
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+kotlinx-coroutines-iosArm64 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-iosArm64", version.ref = "coroutines" }
+kotlinx-coroutines-iosX64 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines--core-iosX64", version.ref = "coroutines" }
+kotlinx-coroutines-iosSimulatorArm64 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-iosSimulatorArm64", version.ref = "coroutines" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 kotlinfixture = { module = "com.appmattus.fixture:fixture", version.ref = "kotlinfixture" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlinTest" }
+ksp-gradle-plugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "kspGradlePlugin" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
@@ -126,6 +134,7 @@ lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx
 logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
 lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
+mockito = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 moshi-core = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
@@ -152,7 +161,8 @@ web3wallet = { module = "com.walletconnect:web3wallet" }
 zxing-android-embedded = { module = "com.journeyapps:zxing-android-embedded", version.ref = "zxing" }
 
 [bundles]
-firebase = ["firebase-analytics", "firebase-crashlytics", "firebase-messaging", "firebase-perf"]
+firebase = ["firebase-analytics", "firebase-config", "firebase-crashlytics",
+    "firebase-messaging", "firebase-perf"]
 koin = ["koin-core", "koin-core-viewmodel"]
 
 [plugins]

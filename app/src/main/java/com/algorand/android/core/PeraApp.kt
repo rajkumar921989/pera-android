@@ -19,12 +19,14 @@ import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.multidex.MultiDex
+import com.algorand.android.koin.KoinInitializer
 import com.algorand.android.migration.MigrationManager
 import com.algorand.android.modules.autolockmanager.ui.AutoLockManager
 import com.algorand.android.modules.firebase.token.FirebaseTokenManager
 import com.algorand.android.modules.pendingintentkeeper.ui.PendingIntentKeeper
 import com.algorand.android.utils.coremanager.ApplicationStatusObserver
 import com.algorand.android.utils.preference.getSavedThemePreference
+import com.google.firebase.FirebaseApp
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
@@ -62,6 +64,8 @@ open class PeraApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        KoinInitializer.initKoin(this)
+        initializeFirebase()
         migrationManager.makeMigrations()
 
         AppCompatDelegate.setDefaultNightMode(sharedPref.getSavedThemePreference().convertToSystemAbbr())
@@ -69,6 +73,10 @@ open class PeraApp : Application() {
         initializeWalletConnect()
         bindApplicationLifecycleAwareComponents()
         bindActivityLifecycleAwareComponents()
+    }
+
+    private fun initializeFirebase() {
+        FirebaseApp.initializeApp(this)
     }
 
     private fun initializeWalletConnect() {
