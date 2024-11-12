@@ -46,6 +46,7 @@ class CoreActionsTabBarView @JvmOverloads constructor(
             browseDAppsButton.setOnClickListener { listener?.onBrowseDappsClick() }
             cardsButton.setOnClickListener { listener?.onCardsClick() }
             backgroundColorView.setOnClickListener { startHidingAnimation() }
+            stakingButton.setOnClickListener { listener?.onStakingClick() }
         }
     }
 
@@ -75,8 +76,16 @@ class CoreActionsTabBarView @JvmOverloads constructor(
 
     fun initViewState(viewState: CoreActionsTabBarViewModel.ViewState) {
         when (viewState) {
-            is Content -> binding.cardsButton.isVisible = viewState.isCardsVisible
-            Idle -> binding.cardsButton.visibility = GONE
+            is Content -> {
+                binding.cardsButton.isVisible = viewState.isImmersveEnabled
+                binding.stakingButton.isVisible = viewState.isStakingEnabled
+                binding.sendButton.isVisible = !viewState.isStakingEnabled
+                binding.scanQrButton.isVisible = !viewState.isStakingEnabled
+            }
+            Idle -> {
+                binding.cardsButton.visibility = GONE
+                binding.stakingButton.visibility = GONE
+            }
         }
     }
 
@@ -121,5 +130,6 @@ class CoreActionsTabBarView @JvmOverloads constructor(
         fun onSwapClick()
         fun onBrowseDappsClick()
         fun onCardsClick()
+        fun onStakingClick()
     }
 }

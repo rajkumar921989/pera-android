@@ -13,11 +13,13 @@
 package com.algorand.android
 
 import androidx.lifecycle.ViewModel
+import com.algorand.common.remoteconfig.domain.usecase.IMMERSVE_BUTTON_TOGGLE
 import com.algorand.common.remoteconfig.domain.usecase.IsFeatureToggleEnabled
+import com.algorand.common.remoteconfig.domain.usecase.STAKING_BUTTON_TOGGLE
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import javax.inject.Inject
 
 @HiltViewModel
 class CoreActionsTabBarViewModel @Inject constructor(
@@ -28,16 +30,16 @@ class CoreActionsTabBarViewModel @Inject constructor(
     val viewState get() = _viewState.asStateFlow()
 
     fun initViewState() {
-        val isCardsToggleEnabled = isFeatureToggleEnabled(CARDS_BUTTON_TOGGLE)
-        _viewState.value = ViewState.Content(isCardsToggleEnabled)
+        val isImmersveToggleEnabled = isFeatureToggleEnabled(IMMERSVE_BUTTON_TOGGLE)
+        val isStakingToggleEnabled = isFeatureToggleEnabled(STAKING_BUTTON_TOGGLE)
+        _viewState.value = ViewState.Content(isImmersveToggleEnabled, isStakingToggleEnabled)
     }
 
     sealed interface ViewState {
         data object Idle : ViewState
-        data class Content(val isCardsVisible: Boolean) : ViewState
-    }
-
-    private companion object {
-        const val CARDS_BUTTON_TOGGLE = "enable_immersve"
+        data class Content(
+            val isImmersveEnabled: Boolean,
+            val isStakingEnabled: Boolean
+        ) : ViewState
     }
 }

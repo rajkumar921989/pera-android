@@ -51,13 +51,13 @@ import com.algorand.android.utils.exceptions.TransactionIdNullException
 import com.algorand.android.utils.findAllNodes
 import com.algorand.android.utils.sendErrorLog
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @Suppress("LongParameterList")
 @HiltViewModel

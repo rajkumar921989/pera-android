@@ -14,6 +14,7 @@ package com.algorand.android.modules.accounts.ui.viewholder
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import com.algorand.android.databinding.ItemAccountsQuickActionsBinding
 import com.algorand.android.models.BaseViewHolder
 import com.algorand.android.modules.accounts.domain.model.BaseAccountListItem
@@ -26,7 +27,14 @@ class AccountsQuickActionsViewHolder(
     override fun bind(item: BaseAccountListItem) {
         if (item !is BaseAccountListItem.QuickActionsItem) return
         with(binding) {
-            buySellButton.setOnClickListener { listener.onBuySellClick() }
+            stakingButton.apply {
+                isVisible = item.isStakingEnabled
+                setOnClickListener { listener.onStakingClick() }
+            }
+            buySellButton.apply {
+                isVisible = !item.isStakingEnabled
+                setOnClickListener { listener.onBuySellClick() }
+            }
             sendButton.setOnClickListener { listener.onSendClick() }
             swapButton.apply {
                 isSelected = item.isSwapButtonSelected
@@ -41,6 +49,7 @@ class AccountsQuickActionsViewHolder(
         fun onSendClick()
         fun onSwapClick()
         fun onScanQrClick()
+        fun onStakingClick()
     }
 
     companion object {

@@ -10,11 +10,12 @@
  * limitations under the License
  */
 
-package com.algorand.common.remoteconfig.domain.usecase
+package com.algorand.android.modules.staking.model
 
-const val IMMERSVE_BUTTON_TOGGLE = "enable_immersve"
-const val STAKING_BUTTON_TOGGLE = "enable_staking"
+import com.algorand.android.discover.common.ui.model.WebViewError
+import com.algorand.android.utils.Event
 
-fun interface IsFeatureToggleEnabled {
-    operator fun invoke(featureToggleKey: String): Boolean
-}
+data class StakingPreview(
+    val sendMessageEvent: Event<String>? = null,
+    val errorEvent: Event<WebViewError>? = null
+)
