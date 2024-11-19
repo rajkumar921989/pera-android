@@ -8,13 +8,13 @@ buildscript {
 
     dependencies {
         classpath(libs.agp)
-        classpath(libs.kotlin.gradle.plugin)
-        classpath(libs.navigation.safe.args.gradle.plugin)
-        classpath(libs.google.services)
+        classpath(libs.dagger.hilt.android.gradle.plugin)
         classpath(libs.firebase.crashlytics.gradle)
-        classpath(libs.hilt.android.gradle.plugin)
-        classpath(libs.perf.plugin)
+        classpath(libs.google.services)
+        classpath(libs.kotlin.gradle.plugin)
         classpath(libs.ksp.gradle.plugin)
+        classpath(libs.navigation.safe.args.gradle.plugin)
+        classpath(libs.perf.plugin)
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

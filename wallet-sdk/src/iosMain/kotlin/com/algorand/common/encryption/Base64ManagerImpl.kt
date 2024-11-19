@@ -10,17 +10,19 @@
  * limitations under the License
  */
 
-package com.algorand.android.modules.algosdk.domain.model
+package com.algorand.common.encryption
 
-import com.algorand.android.models.TransactionParams
+internal actual fun getBase64Manager(): Base64Manager {
+    return Base64ManagerImpl()
+}
 
-data class OnlineKeyRegTransactionPayload(
-    val senderAddress: String,
-    val selectionPublicKey: String,
-    val stateProofKey: String,
-    val voteKey: String,
-    val voteFirstRound: String,
-    val voteLastRound: String,
-    val voteKeyDilution: String,
-    val txnParams: TransactionParams
-)
+internal class Base64ManagerImpl : Base64Manager {
+
+    override fun encode(byteArray: ByteArray): String {
+        return ""
+    }
+
+    override fun decode(value: String): ByteArray {
+        return ByteArray(0)
+    }
+}

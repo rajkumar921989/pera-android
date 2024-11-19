@@ -10,28 +10,32 @@
  * limitations under the License
  */
 
-package com.algorand.android.modules.keyreg.ui.presentation.mapper
+package com.algorand.android.modules.keyreg.ui.mapper
 
-import com.algorand.android.modules.keyreg.ui.presentation.model.KeyRegTransactionDetail
-import com.algorand.android.modules.keyreg.ui.presentation.model.KeyRegTransactionFragmentPreview
+import com.algorand.android.modules.keyreg.ui.model.KeyRegTransactionDetail
+import com.algorand.android.modules.keyreg.ui.model.KeyRegTransactionPreview
 import javax.inject.Inject
 
 class KeyRegTransactionPreviewMapper @Inject constructor() {
 
-    fun createInitialPreview(detail: KeyRegTransactionDetail): KeyRegTransactionFragmentPreview {
-        return KeyRegTransactionFragmentPreview(
+    fun createInitialPreview(
+        detail: KeyRegTransactionDetail,
+        signingAddress: String
+    ): KeyRegTransactionPreview {
+        return KeyRegTransactionPreview(
             isLoadingVisible = false,
             address = detail.address,
             fee = detail.fee?.toString() ?: "",
             type = detail.type,
             selectionKey = detail.selectionPublicKey.orEmpty(),
             votingKey = detail.voteKey.orEmpty(),
-            stateProofKey = detail.sprfkey,
+            stateProofKey = detail.sprfkey.orEmpty(),
             keyDilution = detail.voteKeyDilution.orEmpty(),
             firstValid = detail.voteFirstRound.orEmpty(),
             lastValid = detail.voteLastRound.orEmpty(),
-            xNote = detail.xnote ?: "",
-            note = detail.note ?: "",
+            xNote = detail.xnote,
+            note = detail.note,
+            signingAddress = signingAddress,
             signTransactionEvent = null,
             showErrorEvent = null
         )

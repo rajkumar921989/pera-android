@@ -10,7 +10,7 @@
  * limitations under the License
  */
 
-package com.algorand.android.modules.keyreg.ui.presentation.viewmodel
+package com.algorand.android.modules.keyreg.ui
 
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
@@ -18,18 +18,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.algorand.android.models.SignedTransactionDetail
 import com.algorand.android.modules.keyreg.domain.usecase.CreateKeyRegTransaction
-import com.algorand.android.modules.keyreg.ui.presentation.mapper.KeyRegTransactionPreviewMapper
-import com.algorand.android.modules.keyreg.ui.presentation.model.KeyRegTransactionDetail
-import com.algorand.android.modules.keyreg.ui.presentation.model.KeyRegTransactionFragmentPreview
+import com.algorand.android.modules.keyreg.ui.mapper.KeyRegTransactionPreviewMapper
+import com.algorand.android.modules.keyreg.ui.model.KeyRegTransactionDetail
+import com.algorand.android.modules.keyreg.ui.model.KeyRegTransactionPreview
 import com.algorand.android.usecase.SendSignedTransactionUseCase
 import com.algorand.android.utils.Event
 import com.algorand.android.utils.getOrThrow
 import com.algorand.android.utils.launchIO
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import javax.inject.Inject
 
 @HiltViewModel
 class KeyRegTransactionViewModel @Inject constructor(
@@ -39,14 +39,23 @@ class KeyRegTransactionViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private var keyRegTransactionDetail = savedStateHandle.getOrThrow<KeyRegTransactionDetail>(KEY_REG_DETAIL)
+    var signingAccountAddress = savedStateHandle.getOrThrow<String>(
+        SIGNING_ACCOUNT_ADDRSS
+    )
+    var keyRegTransactionDetail = savedStateHandle.getOrThrow<KeyRegTransactionDetail>(
+        KEY_REG_DETAIL
+    )
 
-    private val _previewState = MutableStateFlow<KeyRegTransactionFragmentPreview?>(null)
+    private val _confirmedTransactionIdState = MutableStateFlow<String?>(null)
+    val confirmedTransactionIdState
+        get() = _confirmedTransactionIdState.asStateFlow()
+
+    private val _previewState = MutableStateFlow<KeyRegTransactionPreview?>(null)
     val previewState
         get() = _previewState.asStateFlow()
 
     fun initUi() {
-        _previewState.value = previewMapper.createInitialPreview(keyRegTransactionDetail)
+        _previewState.value = previewMapper.createInitialPreview(keyRegTransactionDetail, signingAccountAddress)
     }
 
     fun confirmTransaction() {
@@ -56,6 +65,7 @@ class KeyRegTransactionViewModel @Inject constructor(
                     _previewState.value = _previewState.value?.copy(signTransactionEvent = Event(transaction))
                 },
                 onFailed = { exception, _ ->
+                    Log.e(TAG, exception.message.toString())
                     _previewState.value = _previewState.value?.copy(showErrorEvent = Event(Unit))
                 }
             )
@@ -69,19 +79,21 @@ class KeyRegTransactionViewModel @Inject constructor(
             sendSignedTransactionUseCase.sendSignedTransaction(signedTransactionDetail).collectLatest {
                 it.useSuspended(
                     onSuccess = {
-                        Log.e("TAG", "Success")
-                        // Handle success
+                        _confirmedTransactionIdState.value = it
                     },
                     onFailed = {
-                        Log.e("TAG", "Error = ${it.exception}")
-                        // Handle error
+                        Log.d(TAG, it.exception.toString())
+                        _confirmedTransactionIdState.value = TRANSACTION_ERROR
                     }
                 )
             }
         }
     }
 
-    private companion object {
-        const val KEY_REG_DETAIL = "key_reg_transaction_detail"
+    companion object {
+        const val SIGNING_ACCOUNT_ADDRSS = "signingAccountAddress"
+        const val KEY_REG_DETAIL = "keyRegTransactionDetail"
+        const val TAG = "KeyRegTransactionViewModel"
+        const val TRANSACTION_ERROR = "transaction_error"
     }
 }

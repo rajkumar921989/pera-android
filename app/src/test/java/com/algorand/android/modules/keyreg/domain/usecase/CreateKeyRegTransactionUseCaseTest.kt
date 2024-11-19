@@ -20,15 +20,15 @@ import com.algorand.android.modules.algosdk.domain.model.OnlineKeyRegTransaction
 import com.algorand.android.modules.algosdk.domain.usecase.BuildKeyRegOfflineTransaction
 import com.algorand.android.modules.algosdk.domain.usecase.BuildKeyRegOnlineTransaction
 import com.algorand.android.modules.keyreg.domain.model.KeyRegTransaction
-import com.algorand.android.modules.keyreg.ui.presentation.model.KeyRegTransactionDetail
+import com.algorand.android.modules.keyreg.ui.model.KeyRegTransactionDetail
 import com.algorand.android.modules.transaction.domain.GetTransactionParams
 import com.algorand.common.testing.peraFixture
 import io.mockk.coEvery
 import io.mockk.mockk
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class CreateKeyRegTransactionUseCaseTest {
 
@@ -125,6 +125,7 @@ class CreateKeyRegTransactionUseCaseTest {
         val ONLINE_TXN_PAYLOAD = OnlineKeyRegTransactionPayload(
             senderAddress = ONLINE_KEY_REG_TXN_DETAIL.address,
             selectionPublicKey = ONLINE_KEY_REG_TXN_DETAIL.selectionPublicKey.orEmpty(),
+            stateProofKey = ONLINE_KEY_REG_TXN_DETAIL.sprfkey.orEmpty(),
             voteKey = ONLINE_KEY_REG_TXN_DETAIL.voteKey.orEmpty(),
             voteFirstRound = ONLINE_KEY_REG_TXN_DETAIL.voteFirstRound.orEmpty(),
             voteLastRound = ONLINE_KEY_REG_TXN_DETAIL.voteLastRound.orEmpty(),

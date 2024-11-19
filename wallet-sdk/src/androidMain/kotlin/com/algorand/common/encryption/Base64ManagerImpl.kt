@@ -10,23 +10,21 @@
  * limitations under the License
  */
 
-package com.algorand.android.modules.keyreg.ui.presentation.model
+package com.algorand.common.encryption
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-import java.math.BigInteger
+import android.util.Base64
 
-@Parcelize
-data class KeyRegTransactionDetail(
-    val address: String,
-    val type: String,
-    val voteKey: String?,
-    val selectionPublicKey: String?,
-    val sprfkey: String,
-    val voteFirstRound: String?,
-    val voteLastRound: String?,
-    val voteKeyDilution: String?,
-    val fee: BigInteger?,
-    val note: String?,
-    val xnote: String?
-) : Parcelable
+internal actual fun getBase64Manager(): Base64Manager {
+    return Base64ManagerImpl()
+}
+
+internal class Base64ManagerImpl : Base64Manager {
+
+    override fun encode(byteArray: ByteArray): String {
+        return Base64.encodeToString(byteArray, Base64.DEFAULT)
+    }
+
+    override fun decode(value: String): ByteArray {
+        return Base64.decode(value, Base64.DEFAULT)
+    }
+}

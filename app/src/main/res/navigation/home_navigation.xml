@@ -102,6 +102,8 @@
 
     <include app:graph="@navigation/asset_inbox_one_account_navigation" />
 
+    <include app:graph="@navigation/transaction_confirmation_navigation" />
+
     <action
         android:id="@+id/action_global_showQrNavigation"
         app:destination="@id/showQrNavigation">
@@ -254,7 +256,6 @@
             app:argType="com.algorand.android.modules.webimport.common.data.model.WebImportQrCode" />
     </action>
 
-
     <action
         android:id="@+id/action_global_walletConnectSessionsBottomSheet"
         app:destination="@id/walletConnectSessionsBottomSheet" />
@@ -318,6 +319,14 @@
     </action>
 
     <action
+        android:id="@+id/action_global_confirmKeyRegAccountSelectionFragment"
+        app:destination="@id/keyRegAccountSelectionFragment">
+        <argument
+            android:name="keyRegTransactionDetail"
+            app:argType="com.algorand.android.modules.keyreg.ui.model.KeyRegTransactionDetail" />
+    </action>
+
+    <action
         android:id="@+id/action_global_assetInboxOneAccountNavigation"
         app:destination="@id/assetInboxOneAccountNavigation">
         <argument
@@ -328,6 +337,61 @@
     <action
         android:id="@+id/action_global_accountDetailFragment"
         app:destination="@id/accountDetailFragment" />
+
+    <fragment
+        android:id="@+id/keyRegAccountSelectionFragment"
+        android:name="com.algorand.android.modules.keyreg.ui.KeyRegAccountSelectionFragment"
+        android:label="fragment_key_reg_account_selection"
+        tools:layout="@layout/fragment_base_account_selection">
+        <argument
+            android:name="keyRegTransactionDetail"
+            app:argType="com.algorand.android.modules.keyreg.ui.model.KeyRegTransactionDetail" />
+        <action
+            android:id="@+id/action_keyRegAccountSelectionFragment_to_keyRegTransactionFragment"
+            app:destination="@id/keyRegTransactionFragment">
+            <argument
+                android:name="keyRegTransactionDetail"
+                app:argType="com.algorand.android.modules.keyreg.ui.model.KeyRegTransactionDetail" />
+            <argument
+                android:name="signingAccountAddress"
+                app:argType="string" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/keyRegTransactionFragment"
+        android:name="com.algorand.android.modules.keyreg.ui.KeyRegTransactionFragment"
+        android:label="fragment_key_reg_transaction"
+        tools:layout="@layout/fragment_key_reg_transaction">
+        <argument
+            android:name="keyRegTransactionDetail"
+            app:argType="com.algorand.android.modules.keyreg.ui.model.KeyRegTransactionDetail" />
+        <argument
+            android:name="signingAccountAddress"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_KeyRegTransactionFragment_to_addNoteBottomSheet"
+            app:destination="@id/addNoteBottomSheet">
+            <argument
+                android:name="note"
+                app:argType="string"
+                app:nullable="true" />
+            <argument
+                android:name="isInputFieldEnabled"
+                android:defaultValue="true"
+                app:argType="boolean" />
+        </action>
+        <action
+            android:id="@+id/action_KeyRegTransactionFragment_to_TransactionConfirmationFragment"
+            app:destination="@id/transactionConfirmationNavigation">
+            <argument
+                android:name="transactionId"
+                app:argType="string" />
+            <argument
+                android:name="titleResId"
+                app:argType="integer" />
+        </action>
+    </fragment>
 
     <fragment
         android:id="@+id/collectiblesFragment"
