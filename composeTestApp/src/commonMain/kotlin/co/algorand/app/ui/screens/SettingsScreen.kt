@@ -6,11 +6,11 @@ import algorand_android.composetestapp.generated.resources.ic_light_mode
 import algorand_android.composetestapp.generated.resources.nav_settings
 import algorand_android.composetestapp.generated.resources.open_github
 import algorand_android.composetestapp.generated.resources.theme
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
@@ -28,29 +28,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import co.algorand.app.openUrl
-import co.algorand.app.ui.theme.LocalThemeIsDark
-import co.algorand.app.ui.viewmodels.AlgorandBaseViewModel
-import co.algorand.app.ui.widgets.SuppressLint
+import co.algorand.app.ui.widgets.snackbar.SnackbarViewModel
+import com.algorand.common.ui.theme.LocalThemeIsDark
+import com.algorand.common.ui.theme.PeraTheme
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 
-@SuppressLint("ComposableNaming")
 @Composable
 fun SettingsScreen(
     navController: NavController,
-    algorandBaseViewModel: AlgorandBaseViewModel,
+    snackbarViewModel: SnackbarViewModel,
     tag: String,
 ) {
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly,
-        modifier =
-        Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
+        modifier = Modifier.fillMaxSize().background(PeraTheme.colors.background)
     ) {
-        Text(text = stringResource(Res.string.nav_settings))
+        Text(text = stringResource(Res.string.nav_settings), color = PeraTheme.colors.textMain)
 
         var isDark by LocalThemeIsDark.current
         val icon = remember(isDark) {
@@ -65,6 +61,24 @@ fun SettingsScreen(
                 Icon(vectorResource(icon), contentDescription = null)
                 Spacer(Modifier.size(ButtonDefaults.IconSpacing))
                 Text(stringResource(Res.string.theme))
+            }
+        )
+
+        ElevatedButton(
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp).widthIn(min = 200.dp),
+            onClick = {
+                snackbarViewModel.setSnackBarMessage("Snackbar message")
+            },
+            content = {
+                Text("Display snackbar")
+            }
+        )
+
+        ElevatedButton(
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp).widthIn(min = 200.dp),
+            onClick = { navController.navigate(PeraTypographyPreviewScreenNavigation) },
+            content = {
+                Text("Typography")
             }
         )
 

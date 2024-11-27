@@ -20,10 +20,10 @@ import platform.UIKit.UIStatusBarStyleLightContent
 import platform.UIKit.setStatusBarStyle
 
 @Composable
-internal actual fun systemAppearance(isDark: Boolean) {
+internal actual fun SystemAppearance(isDark: Boolean) {
     LaunchedEffect(isDark) {
         UIApplication.sharedApplication.setStatusBarStyle(
-            if (isDark) UIStatusBarStyleDarkContent else UIStatusBarStyleLightContent,
+            if (isDark) UIStatusBarStyleDarkContent else UIStatusBarStyleLightContent
         )
     }
 }
