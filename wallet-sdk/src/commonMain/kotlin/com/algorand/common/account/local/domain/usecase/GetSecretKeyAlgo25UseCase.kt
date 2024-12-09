@@ -8,20 +8,19 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License
+ *
+ *
  */
 
-package com.algorand.common.account.local.data.database.model
+package com.algorand.common.account.local.domain.usecase
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import com.algorand.common.account.local.domain.repository.Algo25AccountRepository
 
-@Entity(tableName = "algo_25")
-internal data class Algo25Entity(
-    @PrimaryKey
-    @ColumnInfo("encrypted_address")
-    val encryptedAddress: String,
+internal class GetSecretKeyAlgo25UseCase(
+    private val algo25AccountRepository: Algo25AccountRepository
+) : GetSecretKey {
 
-    @ColumnInfo("encrypted_secret_key")
-    val encryptedSecretKey: String
-)
+    override suspend fun invoke(address: String): ByteArray? {
+        return algo25AccountRepository.getAccount(address)?.secretKey
+    }
+}
