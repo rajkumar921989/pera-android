@@ -15,6 +15,7 @@ package com.algorand.common.account.local.data.database
 import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import kotlinx.coroutines.Dispatchers
 
 internal fun getAccountDatabase(ctx: Context): AccountDatabase {
@@ -28,4 +29,5 @@ internal fun getDatabaseBuilder(ctx: Context): RoomDatabase.Builder<AccountDatab
         context = appContext,
         name = dbFile.absolutePath
     ).setQueryCoroutineContext(Dispatchers.IO)
+        .setDriver(BundledSQLiteDriver())
 }
