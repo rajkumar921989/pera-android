@@ -12,61 +12,72 @@
 
 package com.algorand.common.algosdk
 
+import cash.z.ecc.android.bip39.Mnemonics
+import cash.z.ecc.android.bip39.Mnemonics.MnemonicCode
+import cash.z.ecc.android.bip39.toSeed
+import com.algorand.algosdk.account.Account
+import com.algorand.algosdk.crypto.Address
 import com.algorand.common.algosdk.model.Algo25Account
 import com.algorand.common.algosdk.model.Bip39Account
+import foundation.algorand.xhdwalletapi.KeyContext
+import foundation.algorand.xhdwalletapi.XHDWalletAPIAndroid
+import org.bouncycastle.jce.provider.BouncyCastleProvider
+import java.security.Security
 import kotlin.random.Random
+
 
 actual interface AlgoAccountSdk {
     actual fun createBip39Account(): Bip39Account
-    actual fun recoverBip39Account(mnemonic: String): Bip39Account
+    actual fun recoverBip39Account(mnemonic: String): Bip39Account?
     actual fun createAlgo25Account(): Algo25Account
-    actual fun recoverAlgo25Account(mnemonic: String): Algo25Account
+    actual fun recoverAlgo25Account(mnemonic: String): Algo25Account?
 }
 
 internal class AlgoAccountSdkImpl : AlgoAccountSdk {
+    init {
+        Security.removeProvider("BC")
+        Security.insertProviderAt(BouncyCastleProvider(), 0)
+    }
 
     override fun createBip39Account(): Bip39Account {
-        val accountAddress = generateRandomAddress()
-        val mnemonic = generate24WordMnemonic()
-        return Bip39Account(accountAddress, mnemonic, byteArrayOf())
+        val generatedMnemonic = MnemonicCode(Mnemonics.WordCount.COUNT_24)
+        val wordsAsString = generatedMnemonic.joinToString(" ")
+        val accountAddress = generateBip39Address(generatedMnemonic)
+        return Bip39Account(accountAddress, wordsAsString, generatedMnemonic.toSeed())
     }
 
     override fun recoverBip39Account(mnemonic: String): Bip39Account {
-        return Bip39Account(mnemonic, mnemonic, byteArrayOf())
+        val m = MnemonicCode(mnemonic)
+        val accountAddress = generateBip39Address(m)
+        return Bip39Account(accountAddress, mnemonic, m.toSeed())
     }
 
     override fun createAlgo25Account(): Algo25Account {
-        val accountAddress = generateRandomAddress()
-        val mnemonic = generate25WordMnemonic()
-        return Algo25Account(accountAddress, mnemonic, byteArrayOf())
+        val account = Account()
+        return Algo25Account(account.address.toString(), account.toMnemonic(), account.toSeed())
     }
 
-    override fun recoverAlgo25Account(mnemonic: String): Algo25Account {
-        return Algo25Account(mnemonic, mnemonic, byteArrayOf())
+    override fun recoverAlgo25Account(mnemonic: String): Algo25Account? {
+        try {
+            val account = Account(mnemonic)
+            return Algo25Account(account.address.toString(), account.toMnemonic(), account.toSeed())
+        } catch (e: Exception) {
+            return null
+        }
     }
 
-    private fun generateRandomAddress(): String {
-        val alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567" // Base32 characters
-        val addressLength = 58
-
-        return (1..addressLength)
-            .map { alphabet[Random.nextInt(alphabet.length)] }
-            .joinToString("")
-    }
-
-    private fun generate24WordMnemonic(): String {
-        return """
-            Lorem ipsum dolor sit amet consectetur adipiscing elit 
-            Mauris ornare orci et facilisis condimentum 
-            Nunc imperdiet ultricies mi nec mattis erat In volutpat tempus
-        """.trimIndent().lowercase()
-    }
-
-    private fun generate25WordMnemonic(): String {
-        return """
-            Lorem ipsum dolor sit amet consectetur adipiscing elit 
-            Mauris ornare orci et facilisis condimentum 
-            Nunc imperdiet ultricies mi nec mattis erat In volutpat tempus tortor
-        """.trimIndent().lowercase()
+    private fun generateBip39Address(mnemonic: MnemonicCode): String {
+        val xHDWalletAPI = XHDWalletAPIAndroid(mnemonic.toSeed())
+        // Produce the PK and turn it into an Algorand formatted address
+        val algoAddress =
+            Address(
+                xHDWalletAPI.keyGen(
+                    KeyContext.Address,
+                    Random.nextInt().toUInt(),
+                    Random.nextInt().toUInt(),
+                    Random.nextInt().toUInt()
+                )
+            )
+        return algoAddress.toString()
     }
 }

@@ -40,6 +40,7 @@ kotlin {
     @OptIn(ExperimentalKotlinGradlePluginApi::class)
     compilerOptions {
         languageVersion.set(KotlinVersion.KOTLIN_2_0)
+        freeCompilerArgs.add("-Xexpect-actual-classes")
     }
 
     listOf(
@@ -55,7 +56,13 @@ kotlin {
 
     sourceSets {
         androidMain.dependencies {
+            // will turn this to implementation when app module references are moved to common
             api(libs.algosdk)
+
+            // toml files don't support aar files yet
+            implementation("net.java.dev.jna:jna:5.14.0@aar")
+            implementation(libs.xhdwalletapi)
+            implementation(libs.kotlin.bip39)
 
             implementation(compose.uiTooling)
             implementation(libs.androidx.activityCompose)
@@ -127,14 +134,6 @@ android {
 
     sourceSets["main"].res.srcDirs("src/commonMain/composeResources", "src/androidMain/res")
     sourceSets["main"].resources.srcDirs("src/commonMain/composeResources")
-
-    configurations.all {
-        // exclude duplicate bouncycastle till walletconnect is no longer used
-        exclude(group = "org.bouncycastle", module = "bcprov-jdk15to18")
-        exclude(group = "org.bouncycastle", module = "bcutil-jdk18on")
-        exclude(group = "org.bouncycastle", module = "bcprov-jdk15on")
-        exclude(group = "org.bouncycastle", module = "bcutil-jdk15on")
-    }
 }
 
 room {
