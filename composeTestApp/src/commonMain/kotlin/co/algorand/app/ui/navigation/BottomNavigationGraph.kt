@@ -22,8 +22,10 @@ import co.algorand.app.ui.screens.DiscoverScreen
 import co.algorand.app.ui.screens.accounts.AccountsScreen
 import co.algorand.app.ui.screens.NftsScreen
 import co.algorand.app.ui.screens.SettingsScreen
+import co.algorand.app.ui.screens.home.AccountsScreen
 import co.algorand.app.ui.widgets.snackbar.SnackBarLayout
 import co.algorand.app.ui.widgets.snackbar.SnackbarViewModel
+import com.algorand.common.account.ui.screens.RecoverAccountInfoScreen
 import org.koin.compose.viewmodel.koinNavViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
 
@@ -45,11 +47,12 @@ fun NavGraphBuilder.getBottomNavigationGraph(
     composable<Discover> {
         val backStackEntry = remember(it) { navController.getBackStackEntry<Discover>() }
         val sharedViewModel: SnackbarViewModel = koinNavViewModel(viewModelStoreOwner = backStackEntry)
-        DiscoverScreen(
-            tag = backStackEntry.toRoute<Discover>().details.name,
-            navController = navController,
-            snackbarViewModel = sharedViewModel,
-        )
+//        DiscoverScreen(
+//            tag = backStackEntry.toRoute<Discover>().details.name,
+//            navController = navController,
+//            snackbarViewModel = sharedViewModel,
+//        )
+        RecoverAccountInfoScreen()
         SnackBarLayout(sharedViewModel, snackbarHostState)
     }
     composable<Collectibles> {
