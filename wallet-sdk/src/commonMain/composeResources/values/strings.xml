@@ -5,6 +5,8 @@
     <string name="account_address">Public Key Address</string>
     <string name="account_passphrase">Mnemomic / Passphrase</string>
     <string name="account_button_lock">Lock Wallet</string>
+    <string name="recover_an_algorand">Recover an Algorand account</string>
+    <string name="recover_in_the_following">In the following steps, you\'ll enter your recovery passphrase to recover an Algorand account.  Have your recovery phrase handy before you begin.</string>
 
     <!-- Error Handling -->
     <string name="error_account">Could not create/recover wallet from passphrase</string>
