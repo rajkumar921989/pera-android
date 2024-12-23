@@ -10,8 +10,13 @@
  * limitations under the License
  */
 
-package com.algorand.common.asset
+package com.algorand.common.asset.data.mapper.model.collectible
 
-object AssetConstants {
-    const val ALGO_ID = -7L
+import com.algorand.common.asset.data.database.model.CollectibleStandardTypeEntity
+import com.algorand.common.asset.data.model.collectible.CollectibleStandardTypeResponse
+import com.algorand.common.asset.domain.model.CollectibleStandardType
+
+internal interface CollectibleStandardTypeMapper {
+    operator fun invoke(response: CollectibleStandardTypeResponse): CollectibleStandardType
+    operator fun invoke(entity: CollectibleStandardTypeEntity): CollectibleStandardType
 }

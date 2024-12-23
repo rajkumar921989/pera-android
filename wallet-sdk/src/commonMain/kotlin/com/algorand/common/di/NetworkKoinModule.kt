@@ -12,11 +12,15 @@
 
 package com.algorand.common.di
 
+import com.algorand.common.foundation.network.AlgodInterceptorPlugin
 import com.algorand.common.foundation.network.IndexerInterceptorPlugin
 import org.koin.dsl.module
 
 internal val networkKoinModule = module {
     single<IndexerInterceptorPlugin> {
         IndexerInterceptorPlugin(get())
+    }
+    single<AlgodInterceptorPlugin> {
+        AlgodInterceptorPlugin(get())
     }
 }

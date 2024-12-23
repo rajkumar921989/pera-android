@@ -14,6 +14,7 @@ package com.algorand.common.di
 
 import com.algorand.common.account.info.di.accountInformationKoinModule
 import com.algorand.common.account.local.di.localAccountsKoinModule
+import com.algorand.common.asset.di.assetDetailKoinModules
 import com.algorand.common.encryption.di.encryptionModule
 
 val commonModuleKoinModules = listOf(
@@ -22,4 +23,4 @@ val commonModuleKoinModules = listOf(
     platformKoinModule(),
     accountInformationKoinModule,
     networkKoinModule
-)
+) + assetDetailKoinModules
