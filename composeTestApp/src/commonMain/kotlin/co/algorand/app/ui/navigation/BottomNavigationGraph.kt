@@ -12,6 +12,7 @@
 
 package co.algorand.app.ui.navigation
 
+import GridFormScreen
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.remember
 import androidx.navigation.NavController
@@ -25,7 +26,6 @@ import co.algorand.app.ui.screens.SettingsScreen
 import co.algorand.app.ui.screens.home.AccountsScreen
 import co.algorand.app.ui.widgets.snackbar.SnackBarLayout
 import co.algorand.app.ui.widgets.snackbar.SnackbarViewModel
-import com.algorand.common.account.ui.screens.RecoverAccountInfoScreen
 import org.koin.compose.viewmodel.koinNavViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
 
@@ -52,7 +52,9 @@ fun NavGraphBuilder.getBottomNavigationGraph(
 //            navController = navController,
 //            snackbarViewModel = sharedViewModel,
 //        )
-        RecoverAccountInfoScreen()
+
+        //RecoverAccountInfoScreen()
+        GridFormScreen()
         SnackBarLayout(sharedViewModel, snackbarHostState)
     }
     composable<Collectibles> {

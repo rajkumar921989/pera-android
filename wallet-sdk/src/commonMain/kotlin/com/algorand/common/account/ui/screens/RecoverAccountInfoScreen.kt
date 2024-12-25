@@ -45,8 +45,7 @@ fun RecoverAccountInfoScreen(
         modifier = Modifier
             .fillMaxHeight()
             .fillMaxWidth()
-            .background(Color.Blue)
-        ,
+            .background(Color.Blue),
         topBar = {
             TopAppBarWidget(
                 title = "",
@@ -61,7 +60,7 @@ fun RecoverAccountInfoScreen(
                 .fillMaxSize()
                 // .background(PeraTheme.colors.background)
                 .padding(top = 100.dp),
-            ) {
+        ) {
             // Image
             Icon(
                 imageVector = vectorResource(Res.drawable.ic_key),
