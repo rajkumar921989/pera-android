@@ -24,7 +24,6 @@ import co.algorand.app.ui.screens.SettingsScreen
 import co.algorand.app.ui.screens.accounts.AccountsScreen
 import co.algorand.app.ui.widgets.snackbar.SnackBarLayout
 import co.algorand.app.ui.widgets.snackbar.SnackbarViewModel
-import com.algorand.common.account.ui.screens.RecoverAccountInfoScreen
 import org.koin.compose.viewmodel.koinNavViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
 
