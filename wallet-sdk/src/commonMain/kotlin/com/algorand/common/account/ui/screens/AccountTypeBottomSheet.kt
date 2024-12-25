@@ -75,8 +75,9 @@ private fun CoreActionItem(
                 imageVector = vectorResource(Res.drawable.ic_close),
                 contentDescription = null,
                 modifier = Modifier.size(20.dp),
+                tint = Color.Blue
 
-                )
+            )
             Text(
                 text = "Select your Mnemonic type",
                 style = PeraTheme.typography.body.regular.sansBold,
@@ -88,17 +89,22 @@ private fun CoreActionItem(
         Card(
             modifier = Modifier
                 .fillMaxWidth().padding(top = 16.dp),
+
             elevation = CardDefaults.cardElevation(8.dp),
 
             shape = RoundedCornerShape(12.dp),
             colors = CardDefaults.cardColors(containerColor = Color.White),
         ) {
 
-            Row(Modifier.padding(all = 16.dp)) {
+            Row(
+                Modifier.padding(all = 16.dp)
+
+            ) {
                 Text(
                     text = "Bip39",
                     style = PeraTheme.typography.body.regular.sansBold,
-                )
+
+                    )
                 Text(
                     text = "Recommended",
                     style = PeraTheme.typography.body.regular.sans,
@@ -111,7 +117,8 @@ private fun CoreActionItem(
                     color = Color.White// Add padding for better readability
                 )
             }
-            Row(modifier = Modifier.padding(start = 16.dp, top = 16.dp),
+            Row(
+                modifier = Modifier.padding(start = 16.dp, top = 16.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -135,16 +142,17 @@ private fun CoreActionItem(
 
         }
         Card(
+
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 16.dp),
             elevation = CardDefaults.cardElevation(8.dp),
-
+            onClick = { },
             shape = RoundedCornerShape(12.dp),
             colors = CardDefaults.cardColors(containerColor = Color.White),
 
             ) {
-            Column(Modifier.padding(all=16.dp)) {
+            Column(Modifier.padding(all = 16.dp)) {
                 Text(
                     text = "Algo25",
                     style = PeraTheme.typography.body.regular.sansBold,
