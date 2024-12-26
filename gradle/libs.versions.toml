@@ -48,6 +48,7 @@ khex = "1.1.2"
 koin = "4.0.1-Beta1"
 kotlin = "2.0.21"
 kotlinfixture = "1.2.0"
+kotlinxDatetime = "0.5.0"
 kotlinxSerialization = "1.7.3"
 kotlinTest = "2.0.21"
 kspGradlePlugin = "2.0.21-1.0.25"
@@ -136,6 +137,7 @@ kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutine
 kotlinx-coroutines-iosArm64 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-iosArm64", version.ref = "coroutines" }
 kotlinx-coroutines-iosX64 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines--core-iosX64", version.ref = "coroutines" }
 kotlinx-coroutines-iosSimulatorArm64 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-iosSimulatorArm64", version.ref = "coroutines" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 kotlinfixture = { module = "com.appmattus.fixture:fixture", version.ref = "kotlinfixture" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlinTest" }

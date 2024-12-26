@@ -12,8 +12,9 @@
 
 package com.algorand.common.di
 
-import com.algorand.common.foundation.network.AlgodInterceptorPlugin
-import com.algorand.common.foundation.network.IndexerInterceptorPlugin
+import com.algorand.common.foundation.network.algod.AlgodInterceptorPlugin
+import com.algorand.common.foundation.network.indexer.IndexerInterceptorPlugin
+import com.algorand.common.foundation.network.pera.PeraMobileInterceptorPlugin
 import org.koin.dsl.module
 
 internal val networkKoinModule = module {
@@ -22,5 +23,8 @@ internal val networkKoinModule = module {
     }
     single<AlgodInterceptorPlugin> {
         AlgodInterceptorPlugin(get())
+    }
+    single<PeraMobileInterceptorPlugin> {
+        PeraMobileInterceptorPlugin(get())
     }
 }
