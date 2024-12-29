@@ -16,7 +16,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import co.algorand.app.ui.AppViewModel
-import co.algorand.app.ui.screens.CoreActionsBottomSheet
 import co.algorand.app.ui.screens.PeraTypographyPreviewScreen
 import co.algorand.app.ui.screens.PeraTypographyPreviewScreenNavigation
 import co.algorand.app.ui.screens.QrScannerScreen
