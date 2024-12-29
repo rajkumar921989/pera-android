@@ -19,11 +19,9 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import co.algorand.app.ui.screens.DiscoverScreen
-import co.algorand.app.ui.screens.accounts.AccountsScreen
 import co.algorand.app.ui.screens.NftsScreen
 import co.algorand.app.ui.screens.SettingsScreen
-import co.algorand.app.ui.screens.home.AccountsScreen
+import co.algorand.app.ui.screens.accounts.AccountsScreen
 import co.algorand.app.ui.widgets.snackbar.SnackBarLayout
 import co.algorand.app.ui.widgets.snackbar.SnackbarViewModel
 import org.koin.compose.viewmodel.koinNavViewModel
